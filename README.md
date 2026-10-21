@@ -2,9 +2,11 @@
 
 Your Spotify track as **8-bit pixel art** in the [Claude Code](https://claude.com/claude-code) status line: the album cover, title, artist, synced lyrics, a progress bar and click-to-control buttons.
 
-![claude-chiptune preview](docs/preview.svg)
+![claude-chiptune playing Exchange by Bryson Tiller](docs/screenshot-trapsoul.png)
 
-*The preview uses a made-up track. In your terminal the cover is the real album art, shrunk to 12×12 pixels in the 256-colour palette.*
+![claude-chiptune playing Heartless by Kanye West](docs/screenshot-heartless.png)
+
+*Real screenshots in Ghostty: the accent colour follows each album cover.*
 
 ## Features
 
@@ -109,7 +111,7 @@ Set these environment variables in the `env` section of `settings.json` to turn 
 
 ```sh
 cd tests && python3 -m unittest            # run the tests
-python3 tools/demo.py | python3 tools/ansi_to_svg.py > docs/preview.svg   # regenerate the preview
+python3 tools/demo.py | python3 tools/ansi_to_svg.py > docs/preview.svg   # demo render, no Spotify needed
 ```
 
 Logs go to `~/.cache/claude-chiptune/chiptune.log`.
