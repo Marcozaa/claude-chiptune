@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "python3", "args": ["-I", "${CLAUDE_PLUGIN_ROOT}/chiptune.py", "sync", "${CLAUDE_PLUGIN_DATA}"] } ] }
+    ],
+    "UserPromptSubmit": [
+      { "hooks": [ { "type": "command", "command": "python3", "args": ["-I", "${CLAUDE_PLUGIN_ROOT}/chiptune.py", "hook", "busy"] } ] }
+    ],
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "python3", "args": ["-I", "${CLAUDE_PLUGIN_ROOT}/chiptune.py", "hook", "idle"] } ] }
+    ],
+    "SessionEnd": [
+      { "hooks": [ { "type": "command", "command": "python3", "args": ["-I", "${CLAUDE_PLUGIN_ROOT}/chiptune.py", "hook", "idle"] } ] }
+    ]
+  }
+}

@@ -26,6 +26,28 @@ Your Spotify track as **8-bit pixel art** in the [Claude Code](https://claude.co
 
 ## Install
 
+### As a Claude Code plugin (recommended)
+
+In Claude Code, run:
+
+```
+/plugin install chiptune --marketplace Marcozaa/claude-chiptune
+/chiptune:setup
+```
+
+The first line installs the plugin. Its hooks, including the one that shrinks the block while Claude works, start working straight away.
+
+`/chiptune:setup` then adds the status line to your settings. It asks before touching an existing status line, and it asks before installing the optional click-to-control helper.
+
+On Claude Code older than 2.1.275, add the marketplace first, then install:
+
+```
+/plugin marketplace add Marcozaa/claude-chiptune
+/plugin install chiptune@chiptune
+```
+
+### Manually
+
 ```sh
 git clone https://github.com/Marcozaa/claude-chiptune.git ~/claude-chiptune
 cd ~/claude-chiptune && ./install.sh
@@ -55,9 +77,7 @@ block=$(python3 -I ~/claude-chiptune/chiptune.py block "$session_id" 2>/dev/null
 
 Set `"refreshInterval": 2` on your `statusLine`, so the progress bar and lyrics keep moving.
 
-### Shrinking while Claude works (optional)
-
-Add these hooks to `~/.claude/settings.json`:
+To shrink the block while Claude works, add these hooks. With the plugin you don't need them, because the plugin includes them.
 
 ```json
 "hooks": {
@@ -104,8 +124,11 @@ Set these environment variables in the `env` section of `settings.json` to turn 
 
 ## Uninstall
 
-1. Remove the `statusLine` and hooks entries from your settings.
-2. Run `rm -rf ~/claude-chiptune ~/.cache/claude-chiptune "~/Applications/Claude Chiptune Controls.app"`.
+1. **Remove the status line.** Delete the `statusLine` entry from your settings, or the lines you added to your own status line script.
+2. **Remove the program.**
+   - Plugin: run `/plugin uninstall chiptune`.
+   - Manual install: delete the hooks from your settings, then run `rm -rf ~/claude-chiptune`.
+3. **Remove the cache and the helper app.** Run `rm -rf ~/.cache/claude-chiptune ~/Applications/"Claude Chiptune Controls.app"`.
 
 ## Development
 

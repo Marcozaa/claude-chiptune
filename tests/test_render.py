@@ -45,7 +45,9 @@ class LayoutTest(unittest.TestCase):
     def test_full_block_layout(self):
         art = [f"ART{i}" for i in range(6)]
         lines = render.full_block(self.info, art, accent=None, lyric="La la", now=0).split("\n")
-        self.assertEqual(lines[0].strip(), "")  # top padding
+        self.assertEqual(lines[0], render.BLANK)  # top padding survives whitespace trimming
+        self.assertNotEqual(render.BLANK.strip(), "")
+        self.assertIn(render.NORMAL + "Maroon 5", lines[2])  # artist undoes any dimming
         body = [plain(l) for l in lines[1:]]
         self.assertEqual(len(body), 6)
         self.assertTrue(body[0].startswith(render.LEFT_PAD + "ART0" + render.GAP))

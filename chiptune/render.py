@@ -9,7 +9,10 @@ from .sanitize import truncate
 from .spotify import NowPlaying
 
 ART_WIDTH = ART_PX
-LEFT_PAD = " "
+# Claude Code trims whitespace around the status line; the braille blank looks
+# empty but isn't whitespace, so the padding survives.
+BLANK = "\u2800"
+LEFT_PAD = BLANK
 GAP = "   "
 BAR_CELLS = 18
 EQ_BARS = 6
@@ -20,6 +23,7 @@ RESET = "\033[0m"
 BOLD = "\033[1m"
 DIM = "\033[2m"
 ITALIC = "\033[3m"
+NORMAL = "\033[22m"  # normal intensity: undoes dim the host may apply
 FALLBACK_ACCENT = 77  # Spotify-ish green
 EQ_LEVELS = "▁▂▃▄▅▆▇█"
 
@@ -75,7 +79,7 @@ def full_block(info: NowPlaying, art: list[str], accent: int | None,
         bottom += f"   {_controls(color)}"
     text = [
         _title(info, color),
-        f"  {truncate(info.artist, MAX_TEXT)}",
+        f"  {NORMAL}{truncate(info.artist, MAX_TEXT)}{RESET}",
         f"  {DIM}{truncate(info.album, MAX_TEXT)}{RESET}",
         f"  {color}{DIM}{ITALIC}♪ {truncate(lyric, MAX_TEXT)}{RESET}" if lyric else "",
         f"  {color}{progress_bar(info.position_ms, info.duration_ms, BAR_CELLS)}{RESET} "
@@ -88,7 +92,7 @@ def full_block(info: NowPlaying, art: list[str], accent: int | None,
         f"{LEFT_PAD}{art[i] if i < len(art) else blank}{GAP}{text[i] if i < len(text) else ''}".rstrip()
         for i in range(rows)
     ]
-    return "\n".join([LEFT_PAD] + body)
+    return "\n".join([BLANK] + body)
 
 
 def compact_line(info: NowPlaying, accent: int | None) -> str:

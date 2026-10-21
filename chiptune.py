@@ -5,6 +5,7 @@
   chiptune.py block [SESSION_ID]   only the now-playing block, to add to your own
   chiptune.py hook busy|idle       mark the session from a hook (JSON on stdin)
   chiptune.py install-controls     build the click-to-control handler app
+  chiptune.py sync DATA_DIR        (plugin) copy the app into DATA_DIR/app if outdated
 """
 import json
 import logging
@@ -66,6 +67,16 @@ def run_install_controls() -> int:
     return 0
 
 
+def run_sync(data_dir: str) -> int:
+    """SessionStart hook for the plugin; must never block a session from starting."""
+    from chiptune.install import sync_app
+    try:
+        sync_app(os.path.dirname(os.path.abspath(__file__)), data_dir)
+    except (OSError, ValueError) as exc:
+        logging.getLogger("chiptune").warning("sync failed: %s", exc)
+    return 0
+
+
 def main(argv: list) -> int:
     setup_logging()
     command = argv[1] if len(argv) > 1 else ""
@@ -78,6 +89,8 @@ def main(argv: list) -> int:
         return hook_main(argv[2])
     if command == "install-controls":
         return run_install_controls()
+    if command == "sync" and len(argv) > 2:
+        return run_sync(argv[2])
     sys.stderr.write(USAGE)
     return 2
 

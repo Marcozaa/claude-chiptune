@@ -1,0 +1,12 @@
+{
+  "name": "chiptune",
+  "description": "Spotify now-playing as 8-bit pixel art in the Claude Code status line",
+  "owner": { "name": "Marcozaa" },
+  "plugins": [
+    {
+      "name": "chiptune",
+      "source": "./",
+      "description": "Album cover as pixel art, synced lyrics, progress bar and click-to-control in your status line (macOS + Spotify)."
+    }
+  ]
+}

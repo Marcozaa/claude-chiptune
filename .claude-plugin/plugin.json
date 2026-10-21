@@ -1,0 +1,11 @@
+{
+  "name": "chiptune",
+  "displayName": "Chiptune",
+  "version": "0.1.0",
+  "description": "Your Spotify track as 8-bit pixel art in the status line: album cover, synced lyrics, progress bar and click-to-control (macOS).",
+  "author": { "name": "Marcozaa" },
+  "homepage": "https://github.com/Marcozaa/claude-chiptune",
+  "repository": "https://github.com/Marcozaa/claude-chiptune",
+  "license": "MIT",
+  "keywords": ["statusline", "spotify", "pixel-art", "lyrics", "macos"]
+}
